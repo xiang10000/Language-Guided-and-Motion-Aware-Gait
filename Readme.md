@@ -6,6 +6,8 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2601.11931-b31b1b.svg)](https://arxiv.org/pdf/2601.11931)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Project](https://img.shields.io/badge/Project-Page-green.svg)](https://dingwu1021.github.io/LMGait/)
+[![Model](https://img.shields.io/badge/Model-%F0%9F%A4%97%20HuggingFace-orange.svg)](https://huggingface.co/zx-Wu/LMGait-SUSTech1K/tree/main)
+
 
 
 
