@@ -1,0 +1,21 @@
+# Python 3.10 recommended. Install a CUDA build of torch/torchvision first
+# (see https://pytorch.org/get-started/locally/), then: pip install -r requirements.txt
+torch>=2.4,<2.5
+torchvision>=0.19,<0.20
+numpy<2
+einops
+kornia
+transformers<5
+tensorboard
+pyyaml
+tqdm
+pandas
+scikit-learn
+matplotlib
+opencv-python<4.11
+imageio
+Pillow
+ftfy
+regex
+# optional: faster DINOv2 attention (code falls back if missing)
+# xformers
