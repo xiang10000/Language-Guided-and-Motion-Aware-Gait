@@ -1,3 +1,4 @@
+import sys
 
 import os
 import argparse
@@ -59,7 +60,15 @@ def run_model(cfgs, training):
 
 
 if __name__ == '__main__':
-    torch.distributed.init_process_group('nccl', init_method='env://')
+    if sys.platform == 'win32':
+        # NCCL is unavailable on Windows, and the TCPStore behind env:// fails on
+        # builds without libuv. Single-process gloo with a file store avoids both.
+        import tempfile
+        store_file = os.path.join(tempfile.mkdtemp(), 'store').replace(os.sep, '/')
+        torch.distributed.init_process_group(
+            'gloo', init_method='file:///' + store_file, rank=0, world_size=1)
+    else:
+        torch.distributed.init_process_group('nccl', init_method='env://')
     if torch.distributed.get_world_size() != torch.cuda.device_count():
         raise ValueError("Expect `number of available GPUs({}) equals to the world size({}).".format(
             torch.cuda.device_count(), torch.distributed.get_world_size()))

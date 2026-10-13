@@ -1,6 +1,6 @@
 # # **************** For CASIA-B ****************
 # # Baseline
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5 python -m torch.distributed.launch --nproc_per_node=6 --master_port 13345 opengait/main.py --cfgs configs/LMGait/BigGait_SUSTECH.yaml --phase train
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5 python -m torch.distributed.launch --nproc_per_node=6 --master_port 13345 opengait/main.py --cfgs configs/LMGait/LMGait_SUSTECH.yaml --phase train
 
 # # GaitSet
 # CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --nproc_per_node=2 opengait/main.py --cfgs ./configs/gaitset/gaitset.yaml --phase train
@@ -30,3 +30,6 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5 python -m torch.distributed.launch --nproc_per_
 
 # GaitGL
 # CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python -m torch.distributed.launch --nproc_per_node=8 opengait/main.py --cfgs ./configs/gaitgl/gaitgl_OUMVLP.yaml --phase train
+# # **************** Windows, single GPU (gloo backend) ****************
+# # PowerShell (no launcher needed; main.py sets up single-process gloo itself):
+# #   .\.venv\Scripts\python.exe opengait/main.py --cfgs configs/LMGait/LMGait_SUSTECH.yaml --phase train
