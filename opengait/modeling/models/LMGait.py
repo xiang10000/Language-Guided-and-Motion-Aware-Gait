@@ -128,9 +128,9 @@ class OffsetAdapter(nn.Module):
         nn.init.constant_(self.fc1.bias, 0.)
         nn.init.constant_(self.fc2.bias, 0.)
 
-    def forward(self, x):
+    def forward(self, x, B=None):
         # T = self.T
-        B = self.B
+        B = self.B if B is None else B
         BT, L, C = x.size()
         # B = BT // T
         T = BT // B
@@ -262,10 +262,10 @@ class Adapter2(nn.Module):
         nn.init.constant_(self.fc1.bias, 0.)
         nn.init.constant_(self.fc2.bias, 0.)
 
-    def forward(self, x):
-        offset = self.offset_adapter(x)
+    def forward(self, x, B=None):
+        B = self.B if B is None else B
+        offset = self.offset_adapter(x, B)
         # T = self.T
-        B = self.B
         BT,L, C = x.size()
         # B = BT // T
         T = BT // B
@@ -1211,7 +1211,7 @@ class LMGait(BaseModel):
 
         outputs = outputs.view(B_ * T_, H_ * W_, out_channel)  # BT,HW,C
 
-        outputs = self.adapter_time(outputs)
+        outputs = self.adapter_time(outputs, B=B_)
 
         outputs = outputs.view(B_*T_, H_, W_, out_channel)        # [B*T, H, W, C]
         outputs = outputs.permute(0, 3, 1, 2).contiguous()  # [B*T, C, H, W]
